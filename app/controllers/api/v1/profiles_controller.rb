@@ -42,7 +42,6 @@ module Api::V1
 
     private
     def set_profile
-      puts "profiles: #{current_user.profiles.length}"
       @profile = current_user.profiles.friendly.find(params[:id])
     end
 
