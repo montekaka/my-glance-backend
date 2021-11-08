@@ -33,5 +33,10 @@ module Api::V1
     def set_project
       @profile = current_user.profiles.friendly.find(params[:id])
     end
+
+    # Only allow a list of trusted parameters through.
+    def project_params
+      params.require(:profile).permit([:slug, :name, :short_description, :avatar_url, :banner_art_url, :primary_color, :secondary_color, :success_color, :danger_color, :warning_color, :info_color, :light_color, :dark_color])
+    end    
   end
 end # end of module
