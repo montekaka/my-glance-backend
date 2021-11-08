@@ -1,0 +1,3 @@
+class SocialNetwork < ApplicationRecord
+  
+end
