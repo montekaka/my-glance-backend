@@ -16,7 +16,13 @@ module Api::V1
 
     # POST /profiles
     def create
+      @profile = current_user.profiles.new(project_params)
 
+      if @profile.save
+        render json: @profile, status: :created
+      else
+        render json: @profile.errors, status: :unprocessable_entity
+      end      
     end
 
     # PATCH/PUT /profiles/1
