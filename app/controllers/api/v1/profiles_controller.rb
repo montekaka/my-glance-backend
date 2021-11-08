@@ -16,7 +16,7 @@ module Api::V1
 
     # POST /profiles
     def create
-      @profile = current_user.profiles.new(project_params)
+      @profile = current_user.profiles.new(profile_params)
 
       if @profile.save
         render json: @profile, status: :created
@@ -27,6 +27,11 @@ module Api::V1
 
     # PATCH/PUT /profiles/1
     def update
+      if @profile.update(profile_params)
+        render json: @profile, status: :ok
+      else
+        render json: @profile.errors, status: :unprocessable_entity
+      end
     end
 
 
@@ -36,12 +41,13 @@ module Api::V1
     end    
 
     private
-    def set_project
+    def set_profile
+      puts "profiles: #{current_user.profiles.length}"
       @profile = current_user.profiles.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
-    def project_params
+    def profile_params
       params.require(:profile).permit([:slug, :name, :short_description, :avatar_url, :banner_art_url, :primary_color, :secondary_color, :success_color, :danger_color, :warning_color, :info_color, :light_color, :dark_color])
     end    
   end
