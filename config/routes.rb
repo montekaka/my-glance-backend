@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   scope module: 'api' do
     namespace :v1 do
+      get 'public_profiles/:id' => 'public_profiles#show'
+
       resources :profiles do
         resources :social_networks
         post 'sync_social_networks' => 'social_networks#sync'
