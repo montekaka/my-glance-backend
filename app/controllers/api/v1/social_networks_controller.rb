@@ -1,7 +1,7 @@
 module Api::V1
   class SocialNetworksController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_profile, only: [:index, :create, :show, :update, :destroy]
+    before_action :set_profile
     before_action :set_social_network, only: [:show, :update, :destroy]
     
 
@@ -39,7 +39,18 @@ module Api::V1
     # DELETE /profiles/2/social_networks/1
     def destroy
       @social_network.destroy
-    end    
+    end   
+    
+    # post /v1/profiles/:project_id/sync_social_networks
+    # create or update or delete all-in
+    def sync
+      if params["items"]
+        items = @profile.sync_social_networks(params["items"])
+        render json: items, status: :ok
+      else
+        render json: { message: ["social networks are missing"] }, status: :bad_request
+      end
+    end
 
     private
     def set_profile

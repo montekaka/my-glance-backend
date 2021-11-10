@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :profiles do
         resources :social_networks
+        post 'sync_social_networks' => 'social_networks#sync'
       end
     end
   end
