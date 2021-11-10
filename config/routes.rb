@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
         resources :tech_skills
         post 'sync_tech_skills' => 'tech_skills#sync'
+
+        resources :widgets
       end
     end
   end
