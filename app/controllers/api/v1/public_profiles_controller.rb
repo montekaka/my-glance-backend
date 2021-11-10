@@ -8,7 +8,7 @@ module Api::V1
       banner_widgets = @profile.widgets.where("section_name = 'banner'").order(:sort_order)
 
       social_networks = @profile.social_networks.order(:sort_order)
-      tech_skills = @profile.tech_skills.order(:sort_order)
+      tech_skills = @profile.tech_skills.order(:sort_order).map {|x| x.icon_name}
       
       render json: {
         profile: @profile,
