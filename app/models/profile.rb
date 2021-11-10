@@ -53,24 +53,22 @@ class Profile < ApplicationRecord
       if item["id"] < 0
         # create
         created_item = self.social_networks.new({name: item["name"], icon_name: item["icon_name"], sort_order: item["sort_order"]})
-        created_item.save
-
-        id = item["id"]
-        pos = social_networks_dict[id]        
-        items[pos]["id"] = created_item.id
-        
-        # res_items.push(created_item)
+        unless created_item.save
+          # puts created_item.errors
+          item["errors"] = created_item.errors.messages
+        end
+        res_items.push(item)
       else
         # update
         social_network = self.social_networks.find_by_id(item["id"])
         if social_network
           social_network.update({name: item["name"], icon_name: item["icon_name"], sort_order: item["sort_order"]})
         end
-        # res_items.push(updated_item)
+        res_items.push(social_network)
       end
     end
-
-    self.social_networks.order(:sort_order)
+    
+    res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
   end
   
   private
