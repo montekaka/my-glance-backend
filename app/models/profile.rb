@@ -6,9 +6,9 @@ class Profile < ApplicationRecord
   validate :slug_validates
 
   belongs_to :user
-  has_many :social_networks
-  has_many :tech_skills
-  has_many :widgets
+  has_many :social_networks, dependent: :delete_all
+  has_many :tech_skills, dependent: :delete_all
+  has_many :widgets, dependent: :delete_all
 
   def slug_candidates
     slug = SecureRandom.uuid[0..4]

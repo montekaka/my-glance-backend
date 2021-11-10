@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_225906) do
+ActiveRecord::Schema.define(version: 2021_11_10_231529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_225906) do
 
   create_table "widgets", force: :cascade do |t|
     t.string "name"
-    t.string "type"
+    t.string "widget_type"
     t.string "icon_name"
     t.string "post_title"
     t.text "post_description"

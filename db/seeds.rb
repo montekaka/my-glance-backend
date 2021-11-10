@@ -10,7 +10,7 @@ user = User.first
 profile = user.profiles.create({
   name: "Josh Chen", 
   short_description: "Front-end Developer",
-  avatarSrc:"https://avatars.githubusercontent.com/u/1149779?v=4",
+  avatar_url:"https://avatars.githubusercontent.com/u/1149779?v=4",
   slug: "montekaka",
   font_family: "DM Sans",
   primary_color: '#131C45', # card background color
@@ -38,7 +38,7 @@ profile.tech_skills.create([
 profile.widgets.create([
   {
     is_dynamic_content: false, 
-    type: 'tweet',
+    widget_type: 'tweet',
     link_type: "general",
     section_name: "banner",
     name: "Pinned Tweet", 
@@ -51,7 +51,7 @@ profile.widgets.create([
   }, 
   {
     is_dynamic_content: true, 
-    type: 'github_calendar',
+    widget_type: 'github_calendar',
     link_type: "github",
     section_name: "body",
     name: "Github", 
@@ -63,7 +63,7 @@ profile.widgets.create([
   },
   {
     is_dynamic_content: true, 
-    type: 'list',
+    widget_type: 'list',
     section_name: "body",
     name: "Medium Posts", 
     icon_name: "medium",
@@ -74,7 +74,7 @@ profile.widgets.create([
   },     
   {
     is_dynamic_content: true, 
-    type: "list",
+    widget_type: "list",
     section_name: "body",
     name: "Dev.to Posts", 
     icon_name: "dev",
