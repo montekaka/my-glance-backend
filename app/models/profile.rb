@@ -75,12 +75,6 @@ class Profile < ApplicationRecord
 
 
   def sync_tech_skills items
-    # behavior:
-    # we will remove all social networks if we can't find from the itmes arr
-    # we will update social network with a positive id in the items *
-    # we will create social network with a negative id in the items **
-    # * if unable to perform the update, then add an err_message
-    # ** if unable to perform the create, then add an err_message
     delete_items = []
     tech_skills_dict = {}
 
@@ -128,12 +122,83 @@ class Profile < ApplicationRecord
     end
 
     res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
-    # if res_items.length < 2      
-    #   res_items
-    # else
-    #   res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
-    # end
   end  
+
+  def sync_widgets items
+    delete_items = []
+    widgets_dict = {}
+
+    items.each_with_index do |item, idx|
+      id = item["id"]
+      widgets_dict[id] = idx      
+    end
+    
+    widgets = self.widgets    
+    widgets.each do |sn|
+      id = sn[:id]
+      if widgets_dict[id] == nil
+        delete_items.push(id)
+      end
+    end
+    
+    # delete      
+    if delete_items.count > 0
+      to_delete_items = self.widgets.where(id: delete_items)
+      to_delete_items.destroy_all
+      widgets = self.widgets
+    end
+    # create or update
+    res_items = []
+    items.each do |item|
+      if item["id"] < 0
+        # create
+        created_item = self.widgets.new({
+          name: item["name"], 
+          icon_name: item["icon_name"], 
+          sort_order: item["sort_order"], 
+          url: item["url"],
+          type: item["type"],
+          is_dynamic_content: item["is_dynamic_content"],
+          post_title: item["post_title"],
+          post_description: item["post_description"],
+          image_url: item["image_url"],
+          section_name: item["section_name"],
+          link_type: item["link_type"],
+          user_name: item["user_name"]
+        })
+        if created_item.save
+          res_items.push(created_item)
+        else
+          # puts created_item.errors
+          item["errors"] = created_item.errors.messages
+          res_items.push(item)
+        end
+        
+      else
+        # update
+        widget = self.widgets.find_by_id(item["id"])
+        if widget
+          widget.update({
+            name: item["name"], 
+            icon_name: item["icon_name"], 
+            sort_order: item["sort_order"], 
+            url: item["url"],
+            type: item["type"],
+            is_dynamic_content: item["is_dynamic_content"],
+            post_title: item["post_title"],
+            post_description: item["post_description"],
+            image_url: item["image_url"],
+            section_name: item["section_name"],
+            link_type: item["link_type"],
+            user_name: item["user_name"]
+          })
+          res_items.push(widget)
+        end        
+      end
+    end
+
+    res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
+  end
   
   private
   def slug_validates
