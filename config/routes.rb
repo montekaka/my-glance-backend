@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       resources :profiles do
         resources :social_networks
         post 'sync_social_networks' => 'social_networks#sync'
+
+        resources :tech_skills
+        post 'sync_tech_skills' => 'tech_skills#sync'
       end
     end
   end
