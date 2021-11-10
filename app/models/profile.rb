@@ -8,6 +8,7 @@ class Profile < ApplicationRecord
   belongs_to :user
   has_many :social_networks
   has_many :tech_skills
+  has_many :widgets
 
   def slug_candidates
     slug = SecureRandom.uuid[0..4]
