@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_043626) do
+ActiveRecord::Schema.define(version: 2021_11_10_051954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,7 +89,27 @@ ActiveRecord::Schema.define(version: 2021_11_10_043626) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "widgets", force: :cascade do |t|
+    t.string "title"
+    t.string "type"
+    t.string "icon_name"
+    t.string "post_title"
+    t.text "post_description"
+    t.string "url"
+    t.integer "sort_order"
+    t.boolean "is_dynamic_content"
+    t.string "image_url"
+    t.string "section_name"
+    t.string "link_type"
+    t.string "user_name"
+    t.bigint "profile_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["profile_id"], name: "index_widgets_on_profile_id"
+  end
+
   add_foreign_key "profiles", "users"
   add_foreign_key "social_networks", "profiles"
   add_foreign_key "tech_skills", "profiles"
+  add_foreign_key "widgets", "profiles"
 end
