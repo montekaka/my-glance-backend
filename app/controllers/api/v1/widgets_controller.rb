@@ -63,7 +63,7 @@ module Api::V1
 
     # Only allow a list of trusted parameters through.
     def widget_params
-      params.require(:widget).permit([:type, :name, :icon_name, :sort_order, :url, :is_dynamic_content, :post_title, :post_description, :image_url, :section_name, :link_type, :user_name])
+      params.require(:widget).permit([:widget_type, :name, :icon_name, :sort_order, :url, :is_dynamic_content, :post_title, :post_description, :image_url, :section_name, :link_type, :user_name, :show_thumbnail, :avatar_url])
     end    
   end
 end # end of module
