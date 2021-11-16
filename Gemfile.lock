@@ -141,7 +141,6 @@ GEM
       thor (~> 1.0)
     rake (13.0.6)
     rb-fsevent (0.11.0)
-    rb-gravatar (1.0.6)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     responders (3.0.1)
@@ -178,7 +177,6 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.4, >= 6.1.4.1)
-  rb-gravatar
   spring
   tzinfo-data
 
