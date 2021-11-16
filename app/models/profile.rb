@@ -51,10 +51,10 @@ class Profile < ApplicationRecord
     end
     # create or update
     res_items = []
-    items.each do |item|
+    items.each_with_index do |item, idx|
       if item["id"] < 0
         # create
-        created_item = self.social_networks.new({name: item["name"], icon_name: item["icon_name"], sort_order: item["sort_order"], url: item["url"]})
+        created_item = self.social_networks.new({name: item["name"], icon_name: item["icon_name"], sort_order: idx + 1, url: item["url"]})
         unless created_item.save
           # puts created_item.errors
           item["errors"] = created_item.errors.messages
@@ -64,7 +64,7 @@ class Profile < ApplicationRecord
         # update
         social_network = self.social_networks.find_by_id(item["id"])
         if social_network
-          social_network.update({name: item["name"], icon_name: item["icon_name"], sort_order: item["sort_order"], url: item["url"]})
+          social_network.update({name: item["name"], icon_name: item["icon_name"], sort_order: idx + 1, url: item["url"]})
         end
         res_items.push(social_network)
       end
@@ -99,10 +99,10 @@ class Profile < ApplicationRecord
     end
     # create or update
     res_items = []
-    items.each do |item|
+    items.each_with_index do |item, idx|
       if item["id"] < 0
         # create
-        created_item = self.tech_skills.new({name: item["name"], icon_name: item["icon_name"], sort_order: item["sort_order"], url: item["url"]})
+        created_item = self.tech_skills.new({name: item["name"], icon_name: item["icon_name"], sort_order: idx + 1, url: item["url"]})
         if created_item.save
           res_items.push(created_item)
         else
@@ -115,7 +115,7 @@ class Profile < ApplicationRecord
         # update
         tech_skill = self.tech_skills.find_by_id(item["id"])
         if tech_skill
-          tech_skill.update({name: item["name"], icon_name: item["icon_name"], sort_order: item["sort_order"], url: item["url"]})
+          tech_skill.update({name: item["name"], icon_name: item["icon_name"], sort_order: idx + 1, url: item["url"]})
           res_items.push(tech_skill)
         end        
       end
