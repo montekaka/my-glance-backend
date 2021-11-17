@@ -69,8 +69,10 @@ class Profile < ApplicationRecord
         res_items.push(social_network)
       end
     end
+
     
-    res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
+    # res_items.sort {|a, b| a.sort_order <=> b.sort_order}
+    self.social_networks.order(:sort_order)
   end
 
 
@@ -121,7 +123,8 @@ class Profile < ApplicationRecord
       end
     end
 
-    res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
+    # res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
+    self.tech_skills.order(:sort_order)
   end  
 
   def sync_widgets items
@@ -197,7 +200,8 @@ class Profile < ApplicationRecord
       end
     end
 
-    res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
+    # res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
+    self.widgets.order(:sort_order)
   end
   
   private
