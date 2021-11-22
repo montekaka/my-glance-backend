@@ -20,6 +20,11 @@ module Api::V1
     def create
       @widget = @profile.widgets.new(widget_params)
 
+      unless @widget.sort_order
+        widget_count = @profile.count
+        @widget.sort_order = widget_count + 1
+      end
+
       if @widget.save
         render json: @widget, status: :created
       else
