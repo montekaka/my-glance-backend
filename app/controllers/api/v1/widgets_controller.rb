@@ -21,7 +21,7 @@ module Api::V1
       @widget = @profile.widgets.new(widget_params)
 
       unless @widget.sort_order
-        widget_count = @profile.count
+        widget_count = @profile.widgets.count
         @widget.sort_order = widget_count + 1
       end
 
@@ -62,7 +62,7 @@ module Api::V1
       @profile = current_user.profiles.friendly.find(params[:profile_id])
     end
 
-    def set_widget
+    def set_widget      
       @widget = @profile.widgets.find(params[:id])
     end
 
