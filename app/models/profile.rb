@@ -152,13 +152,14 @@ class Profile < ApplicationRecord
     end
     # create or update
     res_items = []
-    items.each do |item|
+    items.each_with_index do |item, newOrderId|
       if item["id"] < 0
         # create
         created_item = self.widgets.new({
           name: item["name"], 
           icon_name: item["icon_name"], 
-          sort_order: item["sort_order"], 
+          # sort_order: item["sort_order"], 
+          sort_order: newOrderId + 1, 
           url: item["url"],
           widget_type: item["widget_type"],
           is_dynamic_content: item["is_dynamic_content"],
@@ -184,7 +185,8 @@ class Profile < ApplicationRecord
           widget.update({
             name: item["name"], 
             icon_name: item["icon_name"], 
-            sort_order: item["sort_order"], 
+            # sort_order: item["sort_order"], 
+            sort_order: newOrderId + 1, 
             url: item["url"],
             widget_type: item["widget_type"],
             is_dynamic_content: item["is_dynamic_content"],

@@ -7,7 +7,7 @@ module Api::V1
 
     # GET /profiles/2/widgets
     def index
-      @widgets = @profile.widgets
+      @widgets = @profile.widgets.order(:sort_order)
       render json: @widgets
     end
 
