@@ -1,0 +1,18 @@
+databases:
+ - name: myglance_be
+   databaseName: myglance_be
+   user: myglance_be_admin
+
+services:
+ - type: web
+   name: myglance_be
+   env: ruby
+   buildCommand: "./bin/render-build.sh"
+   startCommand: "bundle exec puma -C config/puma.rb"
+   envVars:
+     - key: DATABASE_URL
+       fromDatabase:
+         name: castpie_be
+         property: connectionString
+     - key: RAILS_MASTER_KEY
+       sync: false
