@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: my_glance_api_production
-  username: my_glance_api
-  password: <%= ENV['MY_GLANCE_API_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
