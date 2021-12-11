@@ -7,7 +7,11 @@ module Api::V1
 
     # GET /profiles/2/widgets
     def index
-      @widgets = @profile.widgets.order(:sort_order)
+      if params["section_name"] 
+        @widgets = @profile.widgets.where("section_name = ?", params["section_name"]).order(:sort_order)  
+      else
+        @widgets = @profile.widgets.order(:sort_order)
+      end
       render json: @widgets
     end
 
@@ -49,8 +53,8 @@ module Api::V1
     # post /v1/profiles/:project_id/sync_widgets
     # create or update or delete all-in
     def sync
-      if params["items"]
-        items = @profile.sync_widgets(params["items"])
+      if params["items"] && params["section_name"]
+        items = @profile.sync_widgets(params["items"], params["section_name"])
         render json: items, status: :ok
       else
         render json: { message: ["widgets are missing"] }, status: :bad_request

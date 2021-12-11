@@ -127,7 +127,7 @@ class Profile < ApplicationRecord
     self.tech_skills.order(:sort_order)
   end  
 
-  def sync_widgets items
+  def sync_widgets items, section_name
     delete_items = []
     widgets_dict = {}
 
@@ -136,7 +136,8 @@ class Profile < ApplicationRecord
       widgets_dict[id] = idx      
     end
     
-    widgets = self.widgets    
+    widgets = self.widgets.where("section_name = ?", section_name)
+    
     widgets.each do |sn|
       id = sn[:id]
       if widgets_dict[id] == nil
