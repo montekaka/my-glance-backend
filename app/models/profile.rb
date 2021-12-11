@@ -204,7 +204,11 @@ class Profile < ApplicationRecord
     end
 
     # res_items.sort {|a, b| a["sort_order"] <=> b["sort_order"]}
-    self.widgets.order(:sort_order)
+    if section_name
+      self.widgets.where("section_name = ?", section_name).order(:sort_order)
+    else
+      self.widgets.order(:sort_order)
+    end    
   end
   
   private
