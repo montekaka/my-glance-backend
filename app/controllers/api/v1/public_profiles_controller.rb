@@ -15,13 +15,15 @@ module Api::V1
 
       social_networks = @profile.social_networks.order(:sort_order).map {|x| {id: x.icon_name, name: x.name, url: x.url}}
       tech_skills = @profile.tech_skills.order(:sort_order).map {|x| x.icon_name}
+      header_pinned = @profile.widgets.where(section_name: "header-pinned")
       
       render json: {
         profile: @profile,
         social_networks: social_networks,
         tech_skills: tech_skills,
         body_widgets: body_widgets,
-        banner_widgets: banner_widgets
+        banner_widgets: banner_widgets,
+        header_pinned: header_pinned
       }
       # @user.as_json(only: [:picture, :age], methods: [:name]) to fewer fileds
     end
