@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_231529) do
+ActiveRecord::Schema.define(version: 2021_12_13_192504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(version: 2021_11_10_231529) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["profile_id"], name: "index_tech_skills_on_profile_id"
+  end
+
+  create_table "twitter_auths", force: :cascade do |t|
+    t.string "access_token"
+    t.string "access_token_secret"
+    t.string "twitter_user_id"
+    t.string "screen_name"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_twitter_auths_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,5 +124,6 @@ ActiveRecord::Schema.define(version: 2021_11_10_231529) do
   add_foreign_key "profiles", "users"
   add_foreign_key "social_networks", "profiles"
   add_foreign_key "tech_skills", "profiles"
+  add_foreign_key "twitter_auths", "users"
   add_foreign_key "widgets", "profiles"
 end
