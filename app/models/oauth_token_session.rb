@@ -1,0 +1,2 @@
+class OauthTokenSession < ApplicationRecord
+end
