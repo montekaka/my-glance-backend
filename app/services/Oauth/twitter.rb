@@ -5,7 +5,10 @@ module Oauth
       @app_key = params[:app_key]
       @app_secret = params[:app_secret]
     end
-
+    # params = {callback: "http://localhost:9000/twitter_connection", app_key: app_key, app_secret: app_secret}
+    # twitter_service = Sharebot::TwitterOauth.new(params)
+    # twitter_service.get_request_token  
+    
     def get_redirect_url
       # our front end will go to the callback url
       # and user will need to login from there

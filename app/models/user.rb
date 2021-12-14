@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
 
   has_many :profiles
+  has_one :twitter_auth
 end
