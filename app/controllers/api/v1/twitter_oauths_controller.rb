@@ -1,10 +1,11 @@
 module Api::V1
   class TwitterOauthsController < ApplicationController
 
-    # POST /v1/twitter_oauth/get_login_link (login with twitter)
+    # GET /v1/twitter_oauth/get_login_link (login with twitter)
     def get_login_link
-      res = TwitterAuth.get_sign_in_redirect_link   
-      if res
+      url = TwitterAuth.get_sign_in_redirect_link
+      
+      if url
         render json: {request_url: url}   
       else
         render json: {message: "Something went wrong."}, status: :bad_request

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   scope module: 'api' do
     namespace :v1 do
       get 'public_profiles/:id' => 'public_profiles#show'
+      get 'twitter_sign_in_link' => 'twitter_oauths#get_login_link'
+      post 'twitter_sign_in' => 'twitter_oauths#login'
 
       resources :profiles do
         resources :social_networks

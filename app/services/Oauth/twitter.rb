@@ -1,5 +1,7 @@
+require 'net/http'
+
 module Oauth
-  class TwitterOauth
+  class Twitter
     def initialize(params)
       @callback = params[:callback]
       @app_key = params[:app_key]

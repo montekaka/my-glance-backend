@@ -20,7 +20,7 @@ class TwitterAuth < ApplicationRecord
     twitter_auth_session.provider = "Twitter"
     twitter_auth_session.save
 
-    return result
+    return result[:url]
   end
 
   def self.obtain_access_token(oauth_token, oauth_verifier)
