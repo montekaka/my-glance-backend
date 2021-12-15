@@ -3,13 +3,13 @@ module Api::V1
 
     # GET /v1/twitter_oauth/get_login_link (login with twitter)
     def get_login_link
-      url = TwitterAuth.get_sign_in_redirect_link
+      redirect_to TwitterAuth.get_sign_in_redirect_link
       
-      if url
-        render json: {request_url: url}   
-      else
-        render json: {message: "Something went wrong."}, status: :bad_request
-      end
+      # if url
+      #   render json: {request_url: url}   
+      # else
+      #   render json: {message: "Something went wrong."}, status: :bad_request
+      # end
     end
 
     # POST /v1/twitter_oauth/sign_in
