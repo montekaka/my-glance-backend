@@ -1,6 +1,22 @@
 class TwitterAuth < ApplicationRecord
   belongs_to :user
 
+  def get_profile_image
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = ENV['TWITTER_API_KEY']
+      config.consumer_secret     = ENV['TWITTER_API_SECRET']
+      config.access_token        = self.access_token
+      config.access_token_secret = self.access_token_secret
+    end
+
+    begin
+      client.user.profile_image_uri_https
+    rescue => error
+      return nil
+    end
+
+  end
+
   def self.get_sign_in_redirect_link
     params = {callback: ENV['TWITTER_API_CALLBACK'], app_key: ENV['TWITTER_API_KEY'], app_secret: ENV['TWITTER_API_SECRET']}
     twitter_service = Oauth::Twitter.new(params)

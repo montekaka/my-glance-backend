@@ -17,6 +17,12 @@ module Api::V1
     # POST /profiles
     def create
       @profile = current_user.profiles.new(profile_params)
+      # try to pull twitter profile photo down if user connect with twitter
+      twitter_auth = current_user.twitter_auth
+
+      if twitter_auth
+        @profile.avatar_url = twitter_auth.get_profile_image
+      end
 
       if @profile.save
         render json: @profile, status: :created
