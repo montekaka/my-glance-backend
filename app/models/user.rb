@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   validates :email, presence: true, uniqueness: true
 
-  has_many :profiles
-  has_one :twitter_auth
+  has_many :profiles, dependent: :delete_all
+  has_one :twitter_auth, dependent: :delete_all
 end
