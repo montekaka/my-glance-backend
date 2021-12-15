@@ -124,7 +124,8 @@ module Oauth
     end
 
     def sign(key, base_string)
-      digest = OpenSSL::Digest::Digest.new('sha1')
+      # digest = OpenSSL::Digest::Digest.new('sha1')
+      digest = OpenSSL::Digest::SHA1.new
       hmac = OpenSSL::HMAC.digest(digest, key, base_string)
       Base64.encode64(hmac).chomp.gsub(/\n/, '')
     end

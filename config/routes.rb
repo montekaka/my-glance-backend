@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'public_profiles/:id' => 'public_profiles#show'
       get 'twitter_sign_in_link' => 'twitter_oauths#get_login_link'      
-      post 'twitter_sign_in' => 'twitter_oauths#login'
+      post 'twitter_sign_in' => 'twitter_oauths#sign_in'
       post 'delete_oauth_token_session' => 'oauth_token_sessions#delete_sessions'
 
       resources :profiles do

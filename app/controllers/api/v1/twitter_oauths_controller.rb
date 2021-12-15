@@ -13,10 +13,11 @@ module Api::V1
     end
 
     # POST /v1/twitter_oauth/sign_in
-    def login
+    def sign_in
       # converting the request token to access token
       oauth_token = params[:oauth_token]
       oauth_verifier = params[:oauth_verifier]
+
       if oauth_token && oauth_verifier
         user = TwitterAuth.obtain_access_token(oauth_token, oauth_verifier)
         if user
